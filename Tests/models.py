@@ -17,12 +17,14 @@ class Product:
         else:
             raise ValueError(f'Не хватает {self.name}')
 
+    def __hash__(self):
+        return hash(self.name + self.description)
 
 @dataclass
 class Cart:
     products: dict[Product, int]
 
-    def __int__(self):
+    def __init__(self):
         self.products = {}
 
     def add_product(self, product: Product, buy_count=1):
@@ -44,8 +46,9 @@ class Cart:
     def get_total_price(self) -> float:
         total_price = 0
         for product, quantity in self.products.items():
-            total_price += product.price * product.quantity
+            total_price += product.price * quantity
         return total_price
+
 
     def buy(self):
         for product, quantity in self.products.items():
@@ -54,3 +57,6 @@ class Cart:
             product.buy(quantity)
 
         self.clear()
+
+
+
