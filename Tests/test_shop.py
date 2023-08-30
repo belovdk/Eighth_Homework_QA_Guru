@@ -6,6 +6,7 @@ from .models import Product, Cart
 def book():
     return Product("book", 100, "This is a book", 1000)
 
+
 @pytest.fixture
 def cart():
     return Cart()
@@ -28,7 +29,6 @@ class TestProducts:
             book.buy(1001)
 
 
-
 class TestCart:
 
     def test_add_product(self, book, cart):
@@ -43,7 +43,7 @@ class TestCart:
         assert book.quantity == 999
         assert len(cart.products) == 0
 
-    def test_remove_all_product(self, book, cart):
+    def test_remove_all_products(self, book, cart):
         cart.add_product(book, 1)
         cart.remove_product(book)
 
@@ -55,8 +55,13 @@ class TestCart:
 
         assert len(cart.products) == 0
 
-    def test_get_zero_total_price(self, book, cart):
+    def test_remove_with_no_argument(self, book, cart):
+        cart.add_product(book, 1)
+        cart.remove_product(book)
 
+        assert len(cart.products) == 0
+
+    def test_get_zero_total_price(self, book, cart):
         assert cart.get_total_price() == 0
 
     def test_get_total_price(self, book, cart):
@@ -80,6 +85,6 @@ class TestCart:
         assert book.quantity == 997
 
     def test_buy_more_than_have(self, book, cart):
-        cart.add_product(book,1001)
+        cart.add_product(book, 1001)
         with pytest.raises(ValueError):
             cart.buy()

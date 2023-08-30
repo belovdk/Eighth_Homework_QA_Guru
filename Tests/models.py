@@ -20,6 +20,7 @@ class Product:
     def __hash__(self):
         return hash(self.name + self.description)
 
+
 @dataclass
 class Cart:
     products: dict[Product, int]
@@ -49,7 +50,6 @@ class Cart:
             total_price += product.price * quantity
         return total_price
 
-
     def buy(self):
         for product, quantity in self.products.items():
             if not product.check_quantity(quantity):
@@ -57,6 +57,3 @@ class Cart:
             product.buy(quantity)
 
         self.clear()
-
-
-
