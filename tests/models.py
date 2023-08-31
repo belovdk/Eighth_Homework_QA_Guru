@@ -52,8 +52,6 @@ class Cart:
 
     def buy(self):
         for product, quantity in self.products.items():
-            if not product.check_quantity(quantity):
-                raise ValueError(f'Не хватает {product.name}')
             product.buy(quantity)
 
         self.clear()

@@ -55,6 +55,12 @@ class TestCart:
 
         assert len(cart.products) == 0
 
+    def test_remove_products(self, book, cart):
+        cart.add_product(book, 2)
+        cart.remove_product(book,2)
+
+        assert  len(cart.products) == 0
+
     def test_remove_with_no_argument(self, book, cart):
         cart.add_product(book, 1)
         cart.remove_product(book)
@@ -62,6 +68,7 @@ class TestCart:
         assert len(cart.products) == 0
 
     def test_get_zero_total_price(self, book, cart):
+
         assert cart.get_total_price() == 0
 
     def test_get_total_price(self, book, cart):
